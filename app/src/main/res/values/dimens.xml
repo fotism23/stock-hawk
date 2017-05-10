@@ -1,0 +1,19 @@
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="list_item_padding">3dp</dimen>
+    <dimen name="list_item_layout_margin">16dp</dimen>
+    <dimen name="stock_dialog_edit_text_margin">4dp</dimen>
+
+    <dimen name="text_size_medium">22sp</dimen>
+    <dimen name="text_size_large">30sp</dimen>
+
+    <dimen name="widget_margin">8dp</dimen>
+    <dimen name="widget_info_height">48dp</dimen>
+
+    <dimen name="widget_detail_default_width">250dp</dimen>
+    <dimen name="widget_detail_default_height">180dp</dimen>
+    <dimen name="widget_detail_min_resize_width">220dp</dimen>
+    <dimen name="widget_detail_min_resize_height">@dimen/widget_detail_default_height</dimen>
+
+</resources>
+
