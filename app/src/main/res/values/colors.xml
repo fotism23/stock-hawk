@@ -10,5 +10,6 @@
     <color name="material_green_700">#00C853</color>
 
     <color name="grid_background">#C5CAE9</color>
+    <color name="text_color_dark">#303030</color>
 
 </resources>
