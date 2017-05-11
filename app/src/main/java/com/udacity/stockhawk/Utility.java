@@ -28,7 +28,7 @@ public final class Utility {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
             DecimalFormat df = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.US);
             df.setMaximumFractionDigits(2);
-            return df.format(price);
+            return df.format(Double.parseDouble(price));
         }
         return price;
     }

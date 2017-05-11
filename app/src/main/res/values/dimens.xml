@@ -10,6 +10,8 @@
     <dimen name="widget_margin">8dp</dimen>
     <dimen name="widget_info_height">48dp</dimen>
 
+    <dimen name="graph_padding">8dp</dimen>
+
     <dimen name="widget_detail_default_width">250dp</dimen>
     <dimen name="widget_detail_default_height">180dp</dimen>
     <dimen name="widget_detail_min_resize_width">220dp</dimen>

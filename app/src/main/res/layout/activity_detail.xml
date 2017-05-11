@@ -8,26 +8,37 @@
     tools:context="com.udacity.stockhawk.ui.DetailActivity"
     android:orientation="vertical">
 
-    <LinearLayout
+    <android.support.v7.widget.GridLayout
+        android:paddingTop="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:paddingStart="@dimen/activity_horizontal_margin"
         android:paddingEnd="@dimen/activity_horizontal_margin"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        app:columnCount="2">
 
         <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/detail_symbol"
             android:textSize="@dimen/text_size_medium"
-            tools:text="GOOG"/>
+            tools:text="GOOG"
+            app:layout_rowWeight="1"
+            app:layout_columnWeight="1"/>
+
+        <TextView
+            android:id="@+id/date_selected"
+            tools:text="27/3/2017"
+            android:gravity="center_vertical"
+            android:textSize="22sp"
+            app:layout_gravity="end"
+            />
+
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="4dp">
+            android:layout_marginTop="4dp"
+            app:layout_rowWeight="1"
+            app:layout_columnWeight="1">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -47,18 +58,41 @@
                 android:gravity="center_vertical"/>
         </LinearLayout>
 
-    </LinearLayout>
-    
-    <android.support.v4.widget.Space
-        android:layout_width="match_parent"
-        android:layout_height="5dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp"
+            app:layout_gravity="end|fill_vertical"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/currency_selected"
+                tools:text="$"
+                android:textSize="@dimen/text_size_medium"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/detail_price_selected"
+                tools:text="1000.00"
+                android:textSize="@dimen/text_size_medium"/>
+        </LinearLayout>
+
+    </android.support.v7.widget.GridLayout>
+
 
     <com.github.mikephil.charting.charts.LineChart
+        android:paddingTop="@dimen/graph_padding"
+        android:paddingStart="@dimen/graph_padding"
+        android:paddingEnd="@dimen/graph_padding"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:drawingCacheQuality="auto"
         android:id="@+id/chart"
-        android:contentDescription="@string/chart_content_descriptor">
+        android:contentDescription="@string/chart_content_descriptor"
+        android:background="@color/colorWhite">
         
     </com.github.mikephil.charting.charts.LineChart>
 

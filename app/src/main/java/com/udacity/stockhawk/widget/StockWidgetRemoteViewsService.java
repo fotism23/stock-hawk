@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Binder;
+import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
@@ -29,8 +30,8 @@ public class StockWidgetRemoteViewsService extends RemoteViewsService {
                 }
                 final long identityToken = Binder.clearCallingIdentity();
                 data = getContentResolver().query(Contract.Quote.URI,
-                        new String[]{Contract.Quote._ID,Contract.Quote.COLUMN_SYMBOL, Contract.Quote.COLUMN_PRICE,
-                                Contract.Quote.COLUMN_PERCENTAGE_CHANGE},
+                        new String[]{Contract.Quote._ID, Contract.Quote.COLUMN_SYMBOL, Contract.Quote.COLUMN_PRICE, Contract.Quote.COLUMN_ABSOLUTE_CHANGE,
+                                Contract.Quote.COLUMN_PERCENTAGE_CHANGE, Contract.Quote.COLUMN_HISTORY},
                         null,
                         null,
                         null
@@ -58,22 +59,25 @@ public class StockWidgetRemoteViewsService extends RemoteViewsService {
                     return null;
                 }
                 RemoteViews views = new RemoteViews(getPackageName(),
-                        R.layout.list_item_quote);
-                views.setTextViewText(R.id.symbol, data.getString(Contract.Quote.POSITION_SYMBOL));
-                views.setTextViewText(R.id.price, data.getString(Contract.Quote.POSITION_SYMBOL));
+                        R.layout.widget_detail_list_item);
+                views.setTextViewText(R.id.widget_symbol, data.getString(Contract.Quote.POSITION_SYMBOL));
+                views.setTextViewText(R.id.widget_price, data.getString(Contract.Quote.POSITION_PRICE));
 
                 float percentageChange = data.getFloat(Contract.Quote.POSITION_PERCENTAGE_CHANGE);
+                String percentageChangeStr = Float.toString(percentageChange);
+
                 if (percentageChange > 0) {
-                    views.setInt(R.id.change, "setBackgroundResource",  R.drawable.percent_change_pill_green);
+                    views.setInt(R.id.widget_change, "setBackgroundResource",  R.drawable.percent_change_pill_green);
+                    percentageChangeStr = "+" + percentageChangeStr;
                 } else {
-                    views.setInt(R.id.change, "setBackgroundResource", R.drawable.percent_change_pill_red);
+                    views.setInt(R.id.widget_change, "setBackgroundResource", R.drawable.percent_change_pill_red);
                 }
 
-                views.setTextViewText(R.id.change, Float.toString(percentageChange));
+                views.setTextViewText(R.id.widget_change, percentageChangeStr);
 
                 final Intent fillInIntent = new Intent();
                 Uri stockUri = Contract.Quote.makeUriForStock(data.getString(Contract.Quote.POSITION_SYMBOL));
-                fillInIntent.setData(stockUri);
+                fillInIntent.putExtra(getString(R.string.extra_stock_selected), stockUri.toString());
                 views.setOnClickFillInIntent(R.id.widget_list_item, fillInIntent);
 
                 return views;
@@ -96,7 +100,7 @@ public class StockWidgetRemoteViewsService extends RemoteViewsService {
 
             @Override
             public boolean hasStableIds() {
-                return false;
+                return true;
             }
         };
     }

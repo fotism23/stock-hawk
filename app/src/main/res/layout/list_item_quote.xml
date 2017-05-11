@@ -5,9 +5,9 @@
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingLeft="@dimen/list_item_layout_margin"
-    android:paddingRight="@dimen/list_item_layout_margin"
-    android:id="@+id/widget_list_item">
+    android:paddingStart="@dimen/list_item_layout_margin"
+    android:paddingEnd="@dimen/list_item_layout_margin"
+    >
 
     <TextView
         android:id="@+id/symbol"

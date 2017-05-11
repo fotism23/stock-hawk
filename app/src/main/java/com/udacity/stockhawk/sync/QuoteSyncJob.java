@@ -90,18 +90,20 @@ public final class QuoteSyncJob {
 
             while (iterator.hasNext()) {
                 String symbol = iterator.next();
-
-
                 Stock stock = quotes.get(symbol);
-
                 StockQuote quote = stock.getQuote();
 
                 if (null == quote) {
                     Toast.makeText(context, "Requesting historical data for a quote that does not exists.", Toast.LENGTH_SHORT).show();
                     continue;
                 }
+                float price;
+                try {
+                    price = quote.getPrice().floatValue();
+                } catch (NullPointerException e) {
+                    continue;
+                }
 
-                float price = quote.getPrice().floatValue();
                 float change = quote.getChange().floatValue();
                 float percentChange = quote.getChangeInPercent().floatValue();
 

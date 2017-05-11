@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/stock_dialog_edit_text_margin"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
         android:layout_marginEnd="@dimen/stock_dialog_edit_text_margin"
         android:layout_marginBottom="@dimen/stock_dialog_edit_text_margin"
         android:layout_marginTop="16dp"

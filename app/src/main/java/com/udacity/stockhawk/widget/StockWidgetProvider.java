@@ -28,20 +28,14 @@ public class StockWidgetProvider extends AppWidgetProvider {
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
             views.setOnClickPendingIntent(R.id.widget, pendingIntent);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                setRemoteAdapter(context, views);
-            } else {
-                setRemoteAdapterV11(context, views);
-            }
+            setRemoteAdapter(context, views);
 
-            boolean useDetailActivity = context.getResources()
-                    .getBoolean(R.bool.use_detail_activity);
-            Intent clickIntentTemplate = useDetailActivity
-                    ? new Intent(context, DetailActivity.class)
-                    : new Intent(context, MainActivity.class);
+            Intent clickIntentTemplate = new Intent(context, DetailActivity.class);
+
             PendingIntent clickPendingIntentTemplate = TaskStackBuilder.create(context)
                     .addNextIntentWithParentStack(clickIntentTemplate)
                     .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
             views.setPendingIntentTemplate(R.id.widget_list, clickPendingIntentTemplate);
             views.setEmptyView(R.id.widget_list, R.id.widget_empty);
             appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -66,9 +60,4 @@ public class StockWidgetProvider extends AppWidgetProvider {
                 new Intent(context, StockWidgetRemoteViewsService.class));
     }
 
-    @SuppressWarnings("deprecation")
-    private void setRemoteAdapterV11(Context context, @NonNull final RemoteViews views) {
-        views.setRemoteAdapter(0, R.id.widget_list,
-                new Intent(context, StockWidgetRemoteViewsService.class));
-    }
 }
