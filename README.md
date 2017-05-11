@@ -8,9 +8,6 @@ This application was developed as the second project (Stage 3) for the Fast Trac
 - Graph representation of a stock's price history.
 - Widget.
 
-# Known Issues.
-- Bug #1 : Yahoo Finance API Library is not working as expected, throwing a StringIndexOutOfBoundsException at sync/QuoteSyncJob line 84.
-
 # Development.
 This Application was developed in:
 Android Studio 2.3.1

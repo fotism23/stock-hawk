@@ -127,7 +127,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             history[i] = history[history.length - i - 1];
             history[history.length - i - 1] = temp;
         }
-        
+
         final ArrayList<Entry> entries = new ArrayList<>();
          dates = new ArrayList<>();
 
