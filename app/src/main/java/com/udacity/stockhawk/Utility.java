@@ -14,7 +14,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-
 public final class Utility {
     @SuppressWarnings("ResourceType")
     static public @QuoteSyncJob.StockStatus
