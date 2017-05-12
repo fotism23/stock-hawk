@@ -16,6 +16,6 @@ JRE: 1.8.0_112-release-b06 amd64
 JVM: OpenJDK 64-Bit Server VM by JetBrains s.r.o
 
 # Preview
-![Alt tag](https://github.com/fotism23/stock-hawk/blob/preview/main_preview.png)
-![Alt tag](https://github.com/fotism23/stock-hawk/blob/preview/details_preview.png)
-![Alt tag](https://github.com/fotism23/stock-hawk/blob/preview/widget_preview.png)
+![Alt tag](https://github.com/fotism23/stock-hawk/blob/master/preview/details_preview.png)
+![Alt tag](https://github.com/fotism23/stock-hawk/blob/master/preview/details_preview.png)
+![Alt tag](https://github.com/fotism23/stock-hawk/blob/master/preview/widget_preview.png)
