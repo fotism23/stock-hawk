@@ -47,7 +47,8 @@ public final class QuoteSyncJob {
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({STOCK_STATUS_OK, STOCK_STATUS_SERVER_DOWN, STOCK_STATUS_NOT_CONNECTED, STOCK_STATUS_UNKNOWN, STOCK_STATUS_API_BUG})
-    public @interface StockStatus {}
+    public @interface StockStatus {
+    }
 
     public static final int STOCK_STATUS_OK = 0;
     public static final int STOCK_STATUS_SERVER_DOWN = 1;
@@ -56,10 +57,10 @@ public final class QuoteSyncJob {
     public static final int STOCK_STATUS_API_BUG = 4;
 
     private QuoteSyncJob() {
+        /* Do Nothing */
     }
 
     static void getQuotes(Context context) {
-
         Timber.d("Running sync job");
 
         Calendar from = Calendar.getInstance();
@@ -67,7 +68,6 @@ public final class QuoteSyncJob {
         from.add(Calendar.YEAR, -YEARS_OF_HISTORY);
 
         try {
-
             Set<String> stockPref = PrefUtils.getStocks(context);
             Set<String> stockCopy = new HashSet<>();
             stockCopy.addAll(stockPref);
@@ -127,11 +127,8 @@ public final class QuoteSyncJob {
                 quoteCV.put(Contract.Quote.COLUMN_PERCENTAGE_CHANGE, percentChange);
                 quoteCV.put(Contract.Quote.COLUMN_ABSOLUTE_CHANGE, change);
 
-
                 quoteCV.put(Contract.Quote.COLUMN_HISTORY, historyBuilder.toString());
-
                 quoteCVs.add(quoteCV);
-
             }
 
             context.getContentResolver()
@@ -161,13 +158,11 @@ public final class QuoteSyncJob {
     private static void schedulePeriodic(Context context) {
         Timber.d("Scheduling a periodic task");
         JobInfo.Builder builder = new JobInfo.Builder(PERIODIC_ID, new ComponentName(context, QuoteJobService.class));
-
         builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .setPeriodic(PERIOD)
                 .setBackoffCriteria(INITIAL_BACKOFF, JobInfo.BACKOFF_POLICY_EXPONENTIAL);
 
         JobScheduler scheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
-
         scheduler.schedule(builder.build());
     }
 
@@ -188,13 +183,10 @@ public final class QuoteSyncJob {
             setStockStatus(context, STOCK_STATUS_NOT_CONNECTED);
             JobInfo.Builder builder = new JobInfo.Builder(ONE_OFF_ID, new ComponentName(context, QuoteJobService.class));
 
-
             builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                     .setBackoffCriteria(INITIAL_BACKOFF, JobInfo.BACKOFF_POLICY_EXPONENTIAL);
 
-
             JobScheduler scheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
-
             scheduler.schedule(builder.build());
         }
     }

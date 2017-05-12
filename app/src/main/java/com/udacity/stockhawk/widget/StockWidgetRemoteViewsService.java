@@ -20,7 +20,7 @@ public class StockWidgetRemoteViewsService extends RemoteViewsService {
 
             @Override
             public void onCreate() {
-
+                 /* Do Nothing */
             }
 
             @Override
@@ -67,7 +67,7 @@ public class StockWidgetRemoteViewsService extends RemoteViewsService {
                 String percentageChangeStr = Float.toString(percentageChange);
 
                 if (percentageChange > 0) {
-                    views.setInt(R.id.widget_change, "setBackgroundResource",  R.drawable.percent_change_pill_green);
+                    views.setInt(R.id.widget_change, "setBackgroundResource", R.drawable.percent_change_pill_green);
                     percentageChangeStr = "+" + percentageChangeStr;
                 } else {
                     views.setInt(R.id.widget_change, "setBackgroundResource", R.drawable.percent_change_pill_red);

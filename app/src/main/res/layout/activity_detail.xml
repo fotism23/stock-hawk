@@ -33,7 +33,6 @@
             app:layout_gravity="end"
             />
 
-
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="4dp"
@@ -81,7 +80,6 @@
         </LinearLayout>
 
     </android.support.v7.widget.GridLayout>
-
 
     <com.github.mikephil.charting.charts.LineChart
         android:paddingTop="@dimen/graph_padding"

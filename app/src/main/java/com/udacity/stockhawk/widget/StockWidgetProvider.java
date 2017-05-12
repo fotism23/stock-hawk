@@ -41,7 +41,6 @@ public class StockWidgetProvider extends AppWidgetProvider {
         }
     }
 
-
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
@@ -58,5 +57,4 @@ public class StockWidgetProvider extends AppWidgetProvider {
         views.setRemoteAdapter(R.id.widget_list,
                 new Intent(context, StockWidgetRemoteViewsService.class));
     }
-
 }

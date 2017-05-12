@@ -14,6 +14,7 @@ public final class Contract {
     private static final Uri BASE_URI = Uri.parse("content://" + AUTHORITY);
 
     private Contract() {
+         /* Do Nothing */
     }
 
     @SuppressWarnings("unused")
@@ -48,8 +49,5 @@ public final class Contract {
         static String getStockFromUri(Uri queryUri) {
             return queryUri.getLastPathSegment();
         }
-
-
     }
-
 }

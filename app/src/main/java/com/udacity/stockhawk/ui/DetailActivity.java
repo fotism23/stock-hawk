@@ -7,7 +7,6 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
@@ -39,7 +38,10 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     private static final int INDEX_SYMBOL = 0;
     private static final int INDEX_HISTORY = 1;
     private static final int INDEX_PRICE = 2;
+
+    @SuppressWarnings("unused")
     private static final int INDEX_ABSOLUTE_CHANGE = 3;
+    @SuppressWarnings("unused")
     private static final int INDEX_PERCENTAGE_CHANGE = 4;
 
     private static final int ID_DETAIL_LOADER = 353;
@@ -103,7 +105,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     private void showData(Cursor data) {
         boolean cursorHasValidData = false;
         if (data != null && data.moveToFirst()) {
-                    /* We have valid data, continue on to bind the data to the UI */
+            /* We have valid data, continue on to bind the data to the UI */
             cursorHasValidData = true;
         }
         if (!cursorHasValidData) {
@@ -113,91 +115,29 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
         detailSymbolTextView.setText(data.getString(INDEX_SYMBOL));
         detailPriceTextView.setText(Utility.getFormattedPrice(data.getString(INDEX_PRICE)));
-
         String[] history = data.getString(INDEX_HISTORY).split("\n");
-
         fillGraph(history);
+        setGraphAttributes();
     }
 
     private void fillGraph(String[] history) {
-
-        for(int i = 0; i < history.length / 2; i++)
-        {
+         /* Reverse Array */
+        for (int i = 0; i < history.length / 2; i++) {
             String temp = history[i];
             history[i] = history[history.length - i - 1];
             history[history.length - i - 1] = temp;
         }
 
         final ArrayList<Entry> entries = new ArrayList<>();
-         dates = new ArrayList<>();
-
+        dates = new ArrayList<>();
         int count = 0;
+
         for (String s : history) {
             float value = Float.parseFloat(s.split(",")[1]);
             dates.add(Utility.getFormattedDate(Long.parseLong(s.split(",")[0])));
-
-            Log.v("detail_dates", s);
             entries.add(new Entry(count, value));
             count++;
         }
-
-        chart.getLegend().setEnabled(false);
-        chart.getXAxis().setEnabled(false);
-        chart.setDoubleTapToZoomEnabled(false);
-
-        chart.setOnChartGestureListener(new OnChartGestureListener() {
-            @Override
-            public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
-                final Entry entry = chart.getEntryByTouchPoint(me.getX(), me.getY());
-                if (entry != null ) {
-                    updateDetailView(entry.getX(), entry.getY());
-                }
-            }
-
-            @Override
-            public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
-                final Entry entry = chart.getEntryByTouchPoint(me.getX(), me.getY());
-                if (entry != null ) {
-                    updateDetailView(entry.getX(), entry.getY());
-                }
-            }
-
-            @Override
-            public void onChartLongPressed(MotionEvent me) {
-
-            }
-
-            @Override
-            public void onChartDoubleTapped(MotionEvent me) {
-
-            }
-
-            @Override
-            public void onChartSingleTapped(MotionEvent me) {
-                final Entry entry = chart.getEntryByTouchPoint(me.getX(), me.getY());
-                if (entry != null ) {
-                    updateDetailView(entry.getX(), entry.getY());
-                }
-            }
-
-            @Override
-            public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
-
-            }
-
-            @Override
-            public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
-
-            }
-
-            @Override
-            public void onChartTranslate(MotionEvent me, float dX, float dY) {
-                final Entry entry = chart.getEntryByTouchPoint(me.getX(), me.getY());
-                if (entry != null ) {
-                    updateDetailView(entry.getX() + dX, entry.getY() + dY);
-                }
-            }
-        });
 
         LineDataSet dataSet = new LineDataSet(entries, "");
         LineData data = new LineData(dataSet);
@@ -206,13 +146,74 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         chart.setData(data);
     }
 
+    private void setGraphAttributes() {
+        chart.getLegend().setEnabled(false);
+        chart.getXAxis().setEnabled(false);
+        chart.setDoubleTapToZoomEnabled(false);
+        chart.getDescription().setEnabled(false);
+
+        chart.setOnChartGestureListener(new OnChartGestureListener() {
+            @Override
+            public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+                final Entry entry = chart.getEntryByTouchPoint(me.getX(), me.getY());
+                if (entry != null) {
+                    updateDetailView(entry.getX(), entry.getY());
+                }
+            }
+
+            @Override
+            public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+                final Entry entry = chart.getEntryByTouchPoint(me.getX(), me.getY());
+                if (entry != null) {
+                    updateDetailView(entry.getX(), entry.getY());
+                }
+            }
+
+            @Override
+            public void onChartLongPressed(MotionEvent me) {
+                /* Do Nothing */
+            }
+
+            @Override
+            public void onChartDoubleTapped(MotionEvent me) {
+                /* Do Nothing */
+            }
+
+            @Override
+            public void onChartSingleTapped(MotionEvent me) {
+                final Entry entry = chart.getEntryByTouchPoint(me.getX(), me.getY());
+                if (entry != null) {
+                    updateDetailView(entry.getX(), entry.getY());
+                }
+            }
+
+            @Override
+            public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
+                 /* Do Nothing */
+            }
+
+            @Override
+            public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
+                 /* Do Nothing */
+            }
+
+            @Override
+            public void onChartTranslate(MotionEvent me, float dX, float dY) {
+                final Entry entry = chart.getEntryByTouchPoint(me.getX(), me.getY());
+                if (entry != null) {
+                    updateDetailView(entry.getX() + dX, entry.getY() + dY);
+                }
+            }
+        });
+    }
+
     private void updateDetailView(float dateIndex, float price) {
-        dateSelectedTextView.setText(dates.get((int)dateIndex));
+        dateSelectedTextView.setText(dates.get((int) dateIndex));
         priceSelectedTextView.setText(Utility.getFormattedPrice(Float.toString(price)));
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
+         /* Do Nothing */
     }
 }

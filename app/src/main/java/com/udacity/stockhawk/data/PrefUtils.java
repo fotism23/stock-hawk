@@ -13,6 +13,7 @@ import java.util.Set;
 public final class PrefUtils {
 
     private PrefUtils() {
+         /* Do Nothing */
     }
 
     public static Set<String> getStocks(Context context) {
