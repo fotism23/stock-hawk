@@ -1,7 +1,7 @@
 # StockHawk.
-A stock monitor Android Application providing readable data directly for Yahoo Finance Service.
+A stock monitor Android Application providing readable data directly from Yahoo Finance Service.
 
-This application was developed as the second project (Stage 3) for the Fast Track Developer Program at [Udacity.com](https://www.udacity.com/)
+This application was developed as the third project (Stage 3) for the Fast Track Developer Program at [Udacity.com](https://www.udacity.com/)
 
 # Functionality.
 - List of your favourite stocks.
